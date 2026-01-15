@@ -9,19 +9,19 @@ body {
   background: #112c44;
   color: #fff;
   font-family: 'Roboto Condensed', sans-serif;
+  background-image: url(../img/background.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom right;
 }
 
 header {
-  height: 96px;
-  overflow: hidden;
-  width: max-content;
-  margin: 0 auto 0 auto;
+  margin: 0 auto 1em;
+  text-align: center;
 }
 
 header img {
-  height: 50px;
-  display: block;
-  margin: 25px 0 0 0;
+  margin-top: 1em;
 }
 
 h1 {

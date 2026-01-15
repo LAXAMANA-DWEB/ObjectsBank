@@ -16,6 +16,6 @@
 
 <body>
   <header>
-    <a href="index.php"><img src="img/logo.png" alt="NeoBank" /></a>
+    <img src="img/logo.png" alt="Asenso" />
   </header>
   <section>
