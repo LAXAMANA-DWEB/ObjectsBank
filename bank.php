@@ -10,7 +10,7 @@ $accounts = [
     new Account(123, 'Savings', 50.00),
     new Account(456, 'Checking', 3500.00),
     new Account(789, 'Credit', -100.00),
-    new Account(203, 'Investment', balance: 0.00),
+    new Account(203, 'Investment',  0.00),
 ];
 
 $customer = new Customer('Prince', 'Laxamana', 'pslaxamana@gmail.com', 'i<3cats', $accounts);
