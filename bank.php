@@ -1,62 +1,74 @@
 <?php
 // Author: Laxamana, Prince S.
 // Section: WD203
-// Date of Last Update: January 16, 2026
+// Date of Last Update: January 17, 2026
 
 include 'classes/Customer.php';
 include 'classes/Account.php';
 
 $accounts = [
-    new Account(123, 'Savings', 50.00),
-    new Account(456, 'Checking', 3500.00),
-    new Account(789, 'Credit', -100.00),
-    new Account(203, 'Investment',  0.00),
+    new Account(1180611, 'Savings', 50.00),
+    new Account(1181106, 'Checking', 3500.00),
+    new Account(1110801, 'Credit', -100.00),
+    new Account(1110801, 'Investment', 0.00),
 ];
 
 $customer = new Customer('Prince', 'Laxamana', 'pslaxamana@gmail.com', 'i<3cats', $accounts);
 
-function addTransaction($accounts, $account_index, $amount, $date, $isDeposit = true)
+function addTransaction($accounts, $account_index, $amount, $isDeposit = true)
 {
-    $isDeposit ? $accounts[$account_index]->deposit($amount) : $accounts[$account_index]->withdraw($amount);
+    $account = $accounts[$account_index];
+    $isDeposit ? $account->deposit($amount) : $account->withdraw($amount);
+}
 
-    echo '<tr>';
-    echo '<td>' . $date . '</td>';
+function displayBalance($accounts)
+{
     foreach ($accounts as $account) {
-        echo
-            '<td ' . ($account->getBalance() > 0 ? 'class="credit"' : 'class="overdrawn"') . '>' .
-            'PHP ' . number_format($account->getBalance(), 2, ) .
+        echo '<tr>';
+        echo '<td>' . $account->number . '</td>';
+        echo '<td>' . $account->type . '</td>';
+        echo '<td ' .
+            ($account->getBalance() > 5000
+                ? 'class="credit"'
+                : ($account->getBalance() > 0
+                    ? ''
+                    : 'class="overdrawn"'
+                )
+            ) . '>' .
+            'PHP ' . number_format($account->getBalance(), 2) .
             '</td>';
+        echo '</tr>';
     }
-    echo '</tr>';
 }
 ?>
 
 <?php include 'includes/header.php' ?>
 
-<h1><?= $customer->getFullName() ?></h1>
+<h2>NAME: <?= $customer->getFullName() ?></h2>
+<h3>Email: <?= $customer->email ?></h3>
 
 <table>
     <tr>
-        <th>Date</th>
-        <?php foreach ($accounts as $account)
-            echo '<th>' . $account->type . '</th>'; ?>
+        <th>Account Number</th>
+        <th>Account Type</th>
+        <th>Balance</th>
     </tr>
 
+    <?= displayBalance($accounts) ?>
+
     <?php
+    addTransaction($accounts, 0, 10000);
 
-    addTransaction($accounts, 0, 0, 'December 20, 2025');    
-    addTransaction($accounts, 0, 10000, 'December 25, 2025');
-    $accounts[2]->deposit(600);
-    $accounts[3]->deposit(1000);
-    addTransaction($accounts, 0, 1600, 'December 26, 2025',false);
+    displayBalance($accounts);
+    ?>
 
-    $accounts[2]->withdraw(500);
-    $accounts[3]->deposit(1750);
-    addTransaction($accounts, 1, 1500, 'January 5, 2026',true);
+    <?php
+    addTransaction($accounts, 0, 5000, false);
+    addTransaction($accounts, 1, 1900);
+    addTransaction($accounts, 2, 600);
+    addTransaction($accounts, 3, 2500);
 
-    $accounts[3]->deposit(1750);
-    addTransaction($accounts, 0, 8450, 'January 15, 2026',false);
-
+    displayBalance($accounts);
     ?>
 </table>
 
